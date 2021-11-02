@@ -208,4 +208,4 @@ $RECYCLE.BIN/
 *.vcxproj.user
 
 *.sln
-.vs\*
+*.*db*
