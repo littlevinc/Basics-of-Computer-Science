@@ -50,4 +50,6 @@ int main() {
 		cout << "Das eingegebene Wort ist ein Palindrom." << endl;
 	}
 	
+	system("PAUSE");
+	return 0;
 }
