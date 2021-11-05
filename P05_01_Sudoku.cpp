@@ -7,7 +7,10 @@ int main() {
     //variables
     int zh = 0, linum = 9, numcompare = 9;
     int vartmp[5];
+    bool rowid[5] = { false, false, false, false, false};
 
+
+    // get user input
    for (zh = 0; zh < 5; zh++) {
        do {
            cout << "Bitte geben Sie die " << zh+1 << ". Zahl ein: ? ";
@@ -21,24 +24,30 @@ int main() {
         // print rows
         for (int x = 0; x < 6; x++) {
 
-            //print line number if you come to first line
+            // print line number if you come to first line
             if (x == 0) {
                 cout << linum;
                 linum--;
-            } else {
+            } 
+            else if ( x > 0 && vartmp [x - 1] == numcompare) 
+            {
+                cout << "*";
+                rowid[x-1] = true;
+            } 
+            else if(rowid[x-1] == true) 
+            {
+                cout << "+";
+            }
+            else 
+            {
                 cout << ".";
             }
 
-            // for (int numcheck = 0; numcheck < 5; numcheck++ ) {
-            //     if (vartmp[numcheck] == numcompare - x) {
-            //         cout << "+";
-            //     } else {
-            //         cout << ".";
-            //     }
-            // }
-    
         } // end rows
         
+        // decrease numcompare to fit the row
+        numcompare--;
+
         // break line after each row
         cout << "\n";
 
