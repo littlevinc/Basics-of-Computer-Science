@@ -5,10 +5,8 @@ using namespace std;
 int main() {
 
     //variables
-    int zh = 0, linum = 9, numcompare = 9;
-    int vartmp[5];
+    int zh = 0, linum = 9, numcompare = 9, vartmp[5];
     bool rowid[5] = { false, false, false, false, false};
-
 
     // get user input
    for (zh = 0; zh < 5; zh++) {
@@ -57,5 +55,5 @@ int main() {
         }
 
     } // end lines
-
+    
 }
