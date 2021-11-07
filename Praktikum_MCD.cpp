@@ -20,7 +20,6 @@ int main() {
     int count[27] = { 0 };
 
     for (char buch = 'A'; buch <= 'Z' ; buch++ ) {
-
         for (int i = 0; i < txtdecry.length(); i++ ) {
 
             if(txtdecry.at(i) == buch) {
