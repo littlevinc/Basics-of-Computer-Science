@@ -28,10 +28,13 @@ using namespace std;
 .3.8.9.|.5.2.6.|.4.7.1
 */
 
+// 1 <<>> ASCII 49
+// 9 <<>> ASCII 57
+
 
 int main() {
 
-    int sudoku[9][9] = {0};
+    int sudoku[9][9] = { 0 }, countc = 0, rowdiff = 0, countr = 0;
     string eingabe[11] = { "" };
 
     cout << "Bitte geben Sie das Sudoku ein:" << endl;
@@ -40,13 +43,40 @@ int main() {
         cin >> eingabe[i];
 
     for (int y = 0; y < 11; y++) {
+
         for (int x = 0; x < eingabe[0].length(); x++) {
-            if () 
+
+
+            if (eingabe[y].at(x) >= '1' && eingabe[y].at(x) <= '9') {
+                sudoku[countr][countc] = int(eingabe[y].at(x)) - 48;
+                countc++;
+            }
+           
         }
+
+        // jump over lines that do not have numbers in them
+        if (y == 2 || y == 6)
+            y++;
+
+        countr++; // jump to next row
+        countc = 0; // reset count in row
 
     }
 
+    // print new version with different signs
+    for (int rowy = 0; rowy < 9; rowy++) {
 
+        for (int columnx = 0; columnx < 9; columnx++) {
+            cout << ";" << sudoku[rowy][columnx];
+            if (columnx == 2 || columnx == 5)
+                cout << ";//";
+        }
+        cout << "\n";
 
+        if (rowy == 2 || rowy == 5) // skip special rows
+            cout << "=======//=======//=======" << endl;
+    }
 
+    system("PAUSE");
+    return 0;
 }
