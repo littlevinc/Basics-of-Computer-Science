@@ -46,7 +46,6 @@ int main() {
 
         for (int x = 0; x < eingabe[0].length(); x++) {
 
-
             if (eingabe[y].at(x) >= '1' && eingabe[y].at(x) <= '9') {
                 sudoku[countr][countc] = int(eingabe[y].at(x)) - 48;
                 countc++;
