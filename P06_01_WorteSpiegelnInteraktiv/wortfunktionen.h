@@ -3,4 +3,4 @@
 #include <iostream>
 
 
-void wortspiegel(std::string x, int y);
+void wortspiegel(std::string &x, int y);

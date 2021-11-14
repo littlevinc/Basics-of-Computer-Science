@@ -3,7 +3,7 @@
 #include "wortfunktionen.h"
 using namespace std;
 
-void wortspiegel(string text, int pos) {
+void wortspiegel(string &text, int pos) {
 
 	int pos_var = pos;
 	string text_var = text, ausgabe = "";
@@ -21,6 +21,10 @@ void wortspiegel(string text, int pos) {
 			--pos_var;
 			ausgabe += text_var.at(pos_var);
 		}
-		cout << ausgabe;
+
+		for (int z = 0; z < ausgabe.length(); z++) {
+			text.at(pos_var) = ausgabe.at(z);
+			pos_var++;
+		}
 	}
 }

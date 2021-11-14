@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-void wortfunktion(string text, int pos) {
+void wortspiegel(string text, int pos) {
 
 	int pos_var = pos;
 	string text_var = text, ausgabe = "";
@@ -12,7 +12,7 @@ void wortfunktion(string text, int pos) {
 		do {
 			pos_var++;
 		} while (pos_var < text_var.length() && text_var.at(pos_var) != ' ' && text_var.at(pos_var) != '.');
-		
+
 		pos_var -= 1;
 		ausgabe += text_var.at(pos_var);
 
@@ -20,7 +20,21 @@ void wortfunktion(string text, int pos) {
 			--pos_var;
 			ausgabe += text_var.at(pos_var);
 		}
-		cout << ausgabe;
+
+
+		for (int z = 0; z < ausgabe.length(); z++) {
+			text.at(pos_var) = ausgabe.at(z);
+			pos_var++;
+		}
+				
+
+
+
+		text = text_var;
+
+		cout << ausgabe << endl;
+		cout << text << endl;
+
 	}
 }
 
@@ -59,8 +73,7 @@ int main()
 		}
 		else if (eingabe == 's')
 		{
-
-			wortfunktion(text, xpos);
+			wortspiegel(text, xpos);
 		}
 		else if (eingabe == 'q')
 		{
