@@ -1,74 +1,88 @@
 #include <iostream>
 #include <string>
-#include <algorithm>
 using namespace std;
 
+void wortspiegel(string text, int pos) {
 
-string encrypt(string text, int s)
-{
-    string result = "";
+	int pos_var = pos;
+	string text_var = text, ausgabe = "";
 
-    for (int i = 0; i < text.length(); i++)
-    {
-        if (isupper(text[i]))
-            result += char(int(text[i] + s - 65) % 26 + 65);
+	if (text_var.at(pos) != ' ') {
 
-        else if (islower(text[i]))
-            result += char(int(text[i] + s - 97) % 26 + 97);
+		do {
+			pos_var++;
+		} while (pos_var < text_var.length() && text_var.at(pos_var) != ' ' && text_var.at(pos_var) != '.');
 
-        else
-            result += text[i];
-    }
+		pos_var -= 1;
+		ausgabe += text_var.at(pos_var);
 
-    return result;
+		while (text_var.at(pos_var) != ' ' && pos_var > 0) {
+			--pos_var;
+			ausgabe += text_var.at(pos_var);
+		}
+
+
+		for (int z = 0; z < ausgabe.length(); z++) {
+			text.at(pos_var) = ausgabe.at(z);
+			pos_var++;
+		}
+				
+
+
+
+		text = text_var;
+
+		cout << ausgabe << endl;
+		cout << text << endl;
+
+	}
 }
 
+int main()
+{
+	// Aufruf der Unit Tests ...
+	// Catch::Session().run();
 
-int main() {
+	string text = "";
+	int xpos = 0;
+	char eingabe = ' ';
+	cout << "Bitte geben Sie den Text ein: ? ";
+	getline(cin, text);
 
-    string txtdecry = "OTP NLPDLC - GPCDNSWFPDDPWFYR(LFNS LWD NLPDLC - NSTQQCP, "
-        "NLPDLC - LWRZCTESXFD, NLPDLC - GPCDNSTPMFYR, GPCDNSTPMPNSTQQCP "
-        "ZOPC LWD PTYQLNSPC NLPDLC MPKPTNSYPE) TDE PTY PTYQLNSPD DJXXPECTDNSPD "
-        "GPCDNSWFPDDPWFYRDGPCQLSCPY, OLD LFQ OPC XZYZRCLASTDNSPY FYO "
-        "XZYZLWASLMPETDNSPY DFMDETEFETZY MLDTPCE.LWD PTYPD OPC PTYQLNSDEPY "
-        "FYO FYDTNSPCDEPY GPCQLSCPY OTPYE PD SPFEP SLFAEDLPNSWTNS OLKF, "
-        "RCFYOACTYKTATPY OPC VCJAEZWZRTP LYDNSLFWTNS OLCKFDEPWWPY.OPC "
-        "PTYQLNSSPTE SLWMPC HPCOPY ZQEXLWD YFC OTP 26 MFNSDELMPY OPD "
-        "WLEPTYTDNSPY LWASLMPED ZSYP FYEPCDNSPTOFYR GZY RCZDD - "
-        "FYO VWPTYMFNSDELMPY LWD LWASLMPE QFPC VWLCEPIE FYO RPSPTXEPIE GPCHPYOPE "
-        "FYO DZYOPCKPTNSPY, DLEKKPTNSPY FDH. YTNSE MPLNSEPE.";
+	while (true) {
 
+		// print out the text on the screen
+		cout << text << endl;
 
-    int count[27] = { 0 };
+		// positioning of the pointer
+		for (int x = 0; x < xpos; x++) {
+			cout << " ";
+		}
 
-    // Analyse der Buchstaben
-    for (char buch = 'A'; buch <= 'Z'; buch++) {
-        for (int i = 0; i < txtdecry.length(); i++) {
+		cout << "*" << endl;
 
-            if (txtdecry.at(i) == buch) {
-                count[int(buch) - 65]++;
-            }
-        }
+		cout << "Befehl (l: links, r: rechts, s: spiegeln, q: Ende) ? ";
+		cin >> eingabe;
 
-    }
+		if (eingabe == 'l') {
+			xpos -= 1;
+		}
+		else if (eingabe == 'r')
+		{
+			xpos += 1;
+		}
+		else if (eingabe == 's')
+		{
+			wortspiegel(text, xpos);
+		}
+		else if (eingabe == 'q')
+		{
+			break;
+		}
 
-    int max = count[0];
-    int maxpos = 0;
+	}
 
-    for (int i = 0; i < 27; i++) {
-        if (count[i] > max) {
-            max = count[i];
-            maxpos = i;
-        }
-    }
-
-    cout << "Vorkommen: " << max << " Stelle: " << maxpos << endl;
-
-    cout << encrypt(txtdecry, (26 - (26 - maxpos)));
-
-
-
-    
-
+	system("PAUSE");
+	return 0;
 
 }
