@@ -2,87 +2,63 @@
 #include <string>
 using namespace std;
 
-void wortspiegel(string text, int pos) {
+void wortspiegel(string& text, int pos) {
 
-	int pos_var = pos;
-	string text_var = text, ausgabe = "";
+	int posmark = pos;
+	string wortback = "";
+	cout << text.length() << endl;
 
-	if (text_var.at(pos) != ' ') {
-
-		do {
-			pos_var++;
-		} while (pos_var < text_var.length() && text_var.at(pos_var) != ' ' && text_var.at(pos_var) != '.');
-
-		pos_var -= 1;
-		ausgabe += text_var.at(pos_var);
-
-		while (text_var.at(pos_var) != ' ' && pos_var > 0) {
-			--pos_var;
-			ausgabe += text_var.at(pos_var);
+	// find the position of the last letter from the selected word
+	for (int i = pos; i < text.length(); i++) {
+		if ((i + 2) > text.length() || text.at(i + 1) == ' ' || text.at(i + 1) == '.') {
+			posmark = i; // safe the position 
+			break;	// break from loop
 		}
-
-
-		for (int z = 0; z < ausgabe.length(); z++) {
-			text.at(pos_var) = ausgabe.at(z);
-			pos_var++;
-		}
-				
-
-
-
-		text = text_var;
-
-		cout << ausgabe << endl;
-		cout << text << endl;
-
 	}
+
+	cout << "Start Position: " << text.at(posmark) << endl;
+
+	// store backward word in variable
+	for (int i = posmark; i >= 0; i--) {
+
+		cout << i << endl;
+		wortback += text.at(i); // write word backwards into string
+
+		// memory error detection
+		if (i == 0 || text.at(i - 1) == ' ' || text.at(i - 1) == '.') {
+			break;
+		}
+	}
+
+	cout << "POSITION FOR BACKWARDS START " << posmark << endl;
+	cout << wortback.length() << wortback << "Test" << endl;
+
+	for (int ex = wortback.length(); ex > 0; ex--) {
+		text.at(posmark) = wortback.at(ex - 1);
+		posmark--;
+	}
+
+	cout << text;
+
 }
 
 int main()
 {
-	// Aufruf der Unit Tests ...
-	// Catch::Session().run();
 
+	int position = 0;
 	string text = "";
-	int xpos = 0;
-	char eingabe = ' ';
-	cout << "Bitte geben Sie den Text ein: ? ";
+	cout << "Bitte geben Sie den Text ein: ";
 	getline(cin, text);
+	cout << "Geben sie die Position ein: ";
+	cin >> position;
 
-	while (true) {
 
-		// print out the text on the screen
-		cout << text << endl;
+	// unveränderter text
+	//cout << text << endl;
 
-		// positioning of the pointer
-		for (int x = 0; x < xpos; x++) {
-			cout << " ";
-		}
+	wortspiegel(text, position);
 
-		cout << "*" << endl;
-
-		cout << "Befehl (l: links, r: rechts, s: spiegeln, q: Ende) ? ";
-		cin >> eingabe;
-
-		if (eingabe == 'l') {
-			xpos -= 1;
-		}
-		else if (eingabe == 'r')
-		{
-			xpos += 1;
-		}
-		else if (eingabe == 's')
-		{
-			wortspiegel(text, xpos);
-		}
-		else if (eingabe == 'q')
-		{
-			break;
-		}
-
-	}
-
-	system("PAUSE");
-	return 0;
+	// veränderter text
+	//cout << text; 
 
 }

@@ -3,28 +3,38 @@
 #include "wortfunktionen.h"
 using namespace std;
 
-void wortspiegel(string &text, int pos) {
+void wortspiegel(string& text, int pos) {
 
-	int pos_var = pos;
-	string text_var = text, ausgabe = "";
+	int posmark = pos;
+	string wortback = "";
 
-	if (text_var.at(pos) != ' ') {
+	if (text.at(pos) != ' ' && text.at(pos) != '.') {
 
-		do {
-			pos_var++;
-		} while (pos_var < text_var.length() && text_var.at(pos_var) != ' ' && text_var.at(pos_var) != '.');
-
-		pos_var -= 1;
-		ausgabe += text_var.at(pos_var);
-
-		while (text_var.at(pos_var) != ' ' && pos_var > 0) {
-			--pos_var;
-			ausgabe += text_var.at(pos_var);
+		// find the position of the last letter from the selected word
+		for (int i = pos; i < text.length(); i++) {
+			if ((i + 2) > text.length() || text.at(i + 1) == ' ' || text.at(i + 1) == '.') {
+				posmark = i; // safe the position 
+				break;	// break from loop
+			}
 		}
 
-		for (int z = 0; z < ausgabe.length(); z++) {
-			text.at(pos_var) = ausgabe.at(z);
-			pos_var++;
+		// store backward word in variable
+		for (int i = posmark; i >= 0; i--) {
+
+			wortback += text.at(i); // write word backwards into string
+
+			// memory error detection
+			if (i == 0 || text.at(i - 1) == ' ' || text.at(i - 1) == '.') {
+				break;
+			}
 		}
+	
+		// insert mirrored word starting from the back of the original word in the string
+		for (int ex = wortback.length(); ex > 0; ex--) {
+			text.at(posmark) = wortback.at(ex - 1);
+			posmark--;
+		}
+
 	}
+
 }
