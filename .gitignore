@@ -210,3 +210,4 @@ $RECYCLE.BIN/
 *.sln
 *.*db*
 .vscode/settings.json
+*.out
