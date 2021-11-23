@@ -2,71 +2,45 @@
 #include <string>
 #include <fstream>
 
+int zeichenkette_suchen_rekursiv(std::string text, std::string zkette, unsigned int text_such_pos = 0) {
+	if (text.substr(text_such_pos, zkette.length()) == zkette) {
+		return text_such_pos;
+	}
+	else if (text_such_pos == text.length() - zkette.length()) {
+		return -1;
+	}
+	else {
+		text_such_pos++;
+		return zeichenkette_suchen_rekursiv(text, zkette, text_such_pos);
+	}
+}
+
+
 int main() {
 
-    // variables
-    std::string daten[5][3];
-    std::string filecontent = ""; 
-    std::string personen = "";
-
-   // struct
-    struct personendaten {
-        std::string name;
-        std::string vorname;
-        std::string birthdate;
-    } personenarray[5];
+	std::string text = "Hallo welt wie geht es dir";
+	std::string zeichenkette = "x";
 
 
-    std::fstream personendaten("personendaten.txt", std::ios::in);
+	int ausgabe = 0;
 
-    for (int i = 0; std::getline(personendaten, personen); i++) {
+	ausgabe = zeichenkette_suchen_rekursiv(text, zeichenkette);
 
-        int indexN = personen.find(",");
-        int indexV = personen.find(",", indexN + 1);
-
-        std::string nname = personen.substr(0, indexN);
-        std::string vname = personen.substr(indexN + 2, indexV - indexN - 2);
-        std::string gebDatum = personen.substr(indexV + 2);
-
-        personenarray[i].name = nname;
-        personenarray[i].vorname = vname;
-        personenarray[i].birthdate = gebDatum;
-
-    }
-    personendaten.close();
+	std::cout << ausgabe;
 
 
-    
-    // html code > file
-    std::fstream website("webseite.html.tmpl", std::ios::in);
-    std::string htmlline = "";
-    std::string htmlcode = "";
-    while (std::getline(website, htmlline)) {
-        htmlcode += htmlline + "\n";
-    }
-    website.close();
 
-    // kurze liste
-    std::string resultshort = "";
-    for (int i = 0; i < 5; i++) {
-
-        resultshort += "<b>" + personenarray[i].name + "</b>, " + personenarray[i].vorname + "</br>\n";
-    }
-
-    int shortlist = htmlcode.find('%');
-    htmlcode.replace(shortlist, 1, resultshort); 
-
-    // lange liste
-    std::string resultlong = "";
-    for (int i = 0; i < 5; i++) {
-        resultlong += "<b>" + personenarray[i].vorname + " " + personenarray[i].name + "</b>, " + personenarray[i].birthdate + "</br>\n";
-    }
-
-    int longlist = htmlcode.find('$');
-    htmlcode.replace(longlist, 1, resultlong);
-
-    std::fstream ausgabe("webseite.html", std::ios::out);
-    ausgabe << htmlcode << std::endl;
-    ausgabe.close();
 
 }
+
+/*
+	for (int x = 0; x < text.length() - zeichenkette.length() ; x++) {
+		std::cout << text.substr(x, zeichenkette.length()) << std::endl;
+		if (text.substr(x, zeichenkette.length()) == zeichenkette) {
+			
+			return x;
+		}
+	}
+
+	return -1;
+*/
