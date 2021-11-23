@@ -1,60 +1,72 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <sstream>
-
-// globally defined struct
-struct personalinfo {
-		std::string vorname, name, birthdate;
-	};
-
-void splitWords(std::ifstream,  personalinfo[]);
 
 int main() {
 
+    // variables
+    std::string daten[5][3];
+    std::string filecontent = "";
+    std::string personen = "";
+
+    // struct
+    struct personendaten {
+        std::string name;
+        std::string vorname;
+        std::string birthdate;
+    } personenarray[5];
 
 
-	// creat array of personalinfo struct
-	personalinfo test1[5];
+    std::fstream personendaten("personendaten.txt", std::ios::in);
 
-	std::string html = "";
-	std::string personen = "";
+    for (int i = 0; std::getline(personendaten, personen); i++) {
 
-	
-	// open both files into variable
-	std::ifstream htmlseite("webseite.html.tmpl");
-	std::ifstream personendaten("personendaten.txt");
+        int indexN = personen.find(",");
+        int indexV = personen.find(",", indexN + 1);
 
-	while (std::getline(htmlseite, html)) {
+        std::string nname = personen.substr(0, indexN);
+        std::string vname = personen.substr(indexN + 2, indexV - indexN - 2);
+        std::string gebDatum = personen.substr(indexV + 2);
 
-		for (int i = 0; i < html.length(); i++) {
-			if (html.at(i) == '%') {
-				while (std::getline(personendaten, personen)) {
-					std::cout << personen << std::endl;
-				}
-			}
-			else if (i == 0) {
-				std::cout << html << std::endl;
-			}
-		}
-	}
+        personenarray[i].name = nname;
+        personenarray[i].vorname = vname;
+        personenarray[i].birthdate = gebDatum;
 
-	splitWords(personendaten, test1);
+    }
+    personendaten.close();
 
 
-}
 
-void splitWords(std::ifstream& datei, personalinfo info[]) {
+    // html code > file
+    std::fstream website("webseite.html.tmpl", std::ios::in);
+    std::string htmlline = "";
+    std::string htmlcode = "";
+    while (std::getline(website, htmlline)) {
+        htmlcode += htmlline + "\n";
+    }
+    website.close();
 
-       std::string htmlline = "";
+    // kurze liste
+    std::string resultshort = "";
+    for (int i = 0; i < 5; i++) {
 
-       while(std::getline(datei, htmlline)) {
+        resultshort += "<b>" + personenarray[i].name + "</b>, " + personenarray[i].vorname + "</br>\n";
+    }
 
-              std::istringstream iss(htmlline);
-              std::string word;
-              while(iss >> word) {  
-                     std::cout << word << std::endl;
-              }
-       } 
-    
+    int shortlist = htmlcode.find('%');
+    htmlcode.replace(shortlist, 1, resultshort);
+
+    // lange liste
+    std::string resultlong = "";
+    for (int i = 0; i < 5; i++) {
+        resultlong += "<b>" + personenarray[i].vorname + " " + personenarray[i].name + "</b>, " + personenarray[i].birthdate + "</br>\n";
+    }
+
+    int longlist = htmlcode.find('$');
+    htmlcode.replace(longlist, 1, resultlong);
+
+    std::fstream ausgabe("webseite.html", std::ios::out);
+    ausgabe << htmlcode << std::endl;
+    ausgabe.close();
+
 }

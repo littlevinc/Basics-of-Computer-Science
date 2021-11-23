@@ -1,64 +1,72 @@
 #include <iostream>
 #include <string>
-using namespace std;
+#include <fstream>
 
-void wortspiegel(string& text, int pos) {
+int main() {
 
-	int posmark = pos;
-	string wortback = "";
-	cout << text.length() << endl;
+    // variables
+    std::string daten[5][3];
+    std::string filecontent = ""; 
+    std::string personen = "";
 
-	// find the position of the last letter from the selected word
-	for (int i = pos; i < text.length(); i++) {
-		if ((i + 2) > text.length() || text.at(i + 1) == ' ' || text.at(i + 1) == '.') {
-			posmark = i; // safe the position 
-			break;	// break from loop
-		}
-	}
-
-	cout << "Start Position: " << text.at(posmark) << endl;
-
-	// store backward word in variable
-	for (int i = posmark; i >= 0; i--) {
-
-		cout << i << endl;
-		wortback += text.at(i); // write word backwards into string
-
-		// memory error detection
-		if (i == 0 || text.at(i - 1) == ' ' || text.at(i - 1) == '.') {
-			break;
-		}
-	}
-
-	cout << "POSITION FOR BACKWARDS START " << posmark << endl;
-	cout << wortback.length() << wortback << "Test" << endl;
-
-	for (int ex = wortback.length(); ex > 0; ex--) {
-		text.at(posmark) = wortback.at(ex - 1);
-		posmark--;
-	}
-
-	cout << text;
-
-}
-
-int main()
-{
-
-	int position = 0;
-	string text = "";
-	cout << "Bitte geben Sie den Text ein: ";
-	getline(cin, text);
-	cout << "Geben sie die Position ein: ";
-	cin >> position;
+   // struct
+    struct personendaten {
+        std::string name;
+        std::string vorname;
+        std::string birthdate;
+    } personenarray[5];
 
 
-	// unveränderter text
-	//cout << text << endl;
+    std::fstream personendaten("personendaten.txt", std::ios::in);
 
-	wortspiegel(text, position);
+    for (int i = 0; std::getline(personendaten, personen); i++) {
 
-	// veränderter text
-	//cout << text; 
+        int indexN = personen.find(",");
+        int indexV = personen.find(",", indexN + 1);
+
+        std::string nname = personen.substr(0, indexN);
+        std::string vname = personen.substr(indexN + 2, indexV - indexN - 2);
+        std::string gebDatum = personen.substr(indexV + 2);
+
+        personenarray[i].name = nname;
+        personenarray[i].vorname = vname;
+        personenarray[i].birthdate = gebDatum;
+
+    }
+    personendaten.close();
+
+
+    
+    // html code > file
+    std::fstream website("webseite.html.tmpl", std::ios::in);
+    std::string htmlline = "";
+    std::string htmlcode = "";
+    while (std::getline(website, htmlline)) {
+        htmlcode += htmlline + "\n";
+    }
+    website.close();
+
+    // kurze liste
+    std::string resultshort = "";
+    for (int i = 0; i < 5; i++) {
+
+        resultshort += "<b>" + personenarray[i].name + "</b>, " + personenarray[i].vorname + "</br>\n";
+    }
+
+    int shortlist = htmlcode.find('%');
+    htmlcode.replace(shortlist, 1, resultshort); 
+
+    // lange liste
+    std::string resultlong = "";
+    for (int i = 0; i < 5; i++) {
+        resultlong += "<b>" + personenarray[i].vorname + " " + personenarray[i].name + "</b>, " + personenarray[i].birthdate + "</br>\n";
+    }
+
+    int longlist = htmlcode.find('$');
+    htmlcode.replace(longlist, 1, resultlong);
+
+    std::fstream ausgabe("webseite.html", std::ios::out);
+    ausgabe << htmlcode << std::endl;
+    ausgabe.close();
 
 }
