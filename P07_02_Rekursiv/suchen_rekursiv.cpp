@@ -12,11 +12,12 @@ int zeichenkette_suchen_rekursiv(std::string text, std::string zkette, unsigned 
 	if (text.substr(text_such_pos, zkette.length()) == zkette) {
 		return text_such_pos;
 	}
-	else if (text_such_pos == text.length() - zkette.length()) {
+
+	if (text_such_pos == text.length() - zkette.length()) {
 		return -1;
 	}
-	else {
-		text_such_pos++;
-		return zeichenkette_suchen_rekursiv(text, zkette, text_such_pos);
-	}
+
+	text_such_pos++;
+	return zeichenkette_suchen_rekursiv(text, zkette, text_such_pos);
+	
 }
