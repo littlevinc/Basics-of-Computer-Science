@@ -16,9 +16,8 @@ int main() {
         std::string birthdate;
     } personenarray[5];
 
-
+    // write personendaten.txt into struct
     std::fstream personendaten("personendaten.txt", std::ios::in);
-
     for (int i = 0; std::getline(personendaten, personen); i++) {
 
         int indexN = personen.find(",");
@@ -65,6 +64,7 @@ int main() {
     int longlist = htmlcode.find('$');
     htmlcode.replace(longlist, 1, resultlong);
 
+    // create website file
     std::fstream ausgabe("webseite.html", std::ios::out);
     ausgabe << htmlcode << std::endl;
     ausgabe.close();
