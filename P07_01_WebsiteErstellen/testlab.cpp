@@ -29,6 +29,7 @@ int main() {
 
     // variables
      std::string daten[5][3];
+     std::string filecontent = ""; // variable to store lines from file
 
     // declare struct, define array
     struct personendaten {
@@ -40,11 +41,18 @@ int main() {
 
     
     std::fstream personendaten("personendaten.txt", std::ios::in); // open file into variable called personendaten
-   
-    //std::cout << filecontent << std::endl; // print first line of file from variabel
-    std::string filecontent = ""; // variable to store lines from file  
-    //getWord(filecontent,daten, 0);
-    
+
+      
+
+
+
+
+
+
+
+
+
+    getline(personendaten, filecontent); 
     getWord(filecontent,daten, 0);
     getline(personendaten, filecontent); // write first line of file into variable 
     getWord(filecontent,daten, 1);
@@ -52,7 +60,7 @@ int main() {
 
     int countpos = 0;
     std::cout << daten[countpos][0] << daten[countpos][1] << daten[countpos][2] << std::endl;
-    int countpos = 1;
+    countpos = 1;
     std::cout << daten[countpos][0] << daten[countpos][1] << daten[countpos][2] << std::endl;
 
     
