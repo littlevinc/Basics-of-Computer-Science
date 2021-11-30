@@ -5,7 +5,6 @@
 int main() {
 
     // variables
-    std::string daten[5][3];
     std::string filecontent = "";
     std::string personen = "";
 
@@ -36,7 +35,7 @@ int main() {
 
 
 
-    // html code > file
+    // html code >> file
     std::fstream website("webseite.html.tmpl", std::ios::in);
     std::string htmlline = "";
     std::string htmlcode = "";
