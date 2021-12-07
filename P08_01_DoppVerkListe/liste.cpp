@@ -89,12 +89,15 @@ void in_liste_einfuegen(TListenKnoten*& anker, int wert_neu, int vor_wert) {
 
 	TListenKnoten* ptr = anker;
 	TListenKnoten* ptr_prev = nullptr;
+
+	TListenKnoten* neuer_eintrag = new TListenKnoten;
+	neuer_eintrag->data = wert_neu;
+	neuer_eintrag->next = nullptr;
+	neuer_eintrag->prev = nullptr;
+
 	// case when list is empty
 	if (anker == nullptr) {
-		TListenKnoten* neuer_eintrag = new TListenKnoten;
-		neuer_eintrag->data = wert_neu;
-		neuer_eintrag->next = nullptr;
-		neuer_eintrag->prev = nullptr;
+		
 		anker = neuer_eintrag;
 	}
 	else {
@@ -113,7 +116,7 @@ void in_liste_einfuegen(TListenKnoten*& anker, int wert_neu, int vor_wert) {
 
 				// last element of list and element doesn't match term
 				if (ptr->next == nullptr && ptr->data != vor_wert) {
-					TListenKnoten* neuer_eintrag = new TListenKnoten;
+					
 					neuer_eintrag->data = wert_neu;
 					neuer_eintrag->next = nullptr;
 					neuer_eintrag->prev = ptr;
@@ -121,7 +124,7 @@ void in_liste_einfuegen(TListenKnoten*& anker, int wert_neu, int vor_wert) {
 					ptr->next = neuer_eintrag;
 				}
 				else {
-					TListenKnoten* neuer_eintrag = new TListenKnoten;
+					
 					neuer_eintrag->data = wert_neu;
 					neuer_eintrag->next = ptr;
 					neuer_eintrag->prev = ptr_prev;
@@ -133,8 +136,8 @@ void in_liste_einfuegen(TListenKnoten*& anker, int wert_neu, int vor_wert) {
 
 			}
 			else {
-				// criteria matches first element of list
-				TListenKnoten* neuer_eintrag = new TListenKnoten;
+				// criteria matches element of list
+				
 				neuer_eintrag->data = wert_neu;
 				neuer_eintrag->next = ptr;
 				neuer_eintrag->prev = nullptr;
@@ -147,7 +150,7 @@ void in_liste_einfuegen(TListenKnoten*& anker, int wert_neu, int vor_wert) {
 		else {
 			// list with element add after as last element
 			if (ptr->data != vor_wert && ptr->next == nullptr) {
-				TListenKnoten* neuer_eintrag = new TListenKnoten;
+				
 				neuer_eintrag->data = wert_neu;
 				neuer_eintrag->next = nullptr;
 				neuer_eintrag->prev = ptr;
@@ -158,7 +161,7 @@ void in_liste_einfuegen(TListenKnoten*& anker, int wert_neu, int vor_wert) {
 			}
 			// list with one element add before as first element
 			if (ptr->data == vor_wert && ptr->next == nullptr) {
-				TListenKnoten* neuer_eintrag = new TListenKnoten;
+				
 				neuer_eintrag->data = wert_neu;
 				neuer_eintrag->next = ptr;
 				neuer_eintrag->prev = nullptr;
@@ -191,6 +194,7 @@ void aus_liste_loeschen(TListenKnoten*& anker, int wert)
 			TListenKnoten* ptr = anker;
 			if (wert == anker->data)
 			{
+				// first element in list with multiple elements
 				anker = anker->next;
 				anker->prev = nullptr;
 				if (anker->next != nullptr)
@@ -203,7 +207,7 @@ void aus_liste_loeschen(TListenKnoten*& anker, int wert)
 			else
 			{
 				do {
-
+					// every other position
 					if (wert == ptr->data)
 					{
 
@@ -218,6 +222,7 @@ void aus_liste_loeschen(TListenKnoten*& anker, int wert)
 						else
 						{
 							tmp->next = nullptr;
+							delete ptr;
 						}
 						break;
 					}
@@ -226,5 +231,4 @@ void aus_liste_loeschen(TListenKnoten*& anker, int wert)
 			}
 		}
 	}
-
 }
