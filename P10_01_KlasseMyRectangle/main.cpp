@@ -1,12 +1,8 @@
 // Datei: main.cpp
-
 #include <iostream>
-
 
 #define CIMGGIP_MAIN
 #include "CImgGIP06.h"
-
-
 #include "MyRectangle.h"
 
 int main()
@@ -32,6 +28,7 @@ int main()
 
 		// Pausieren ...
 		gip_sleep(4);
+		
 	}
 	return 0;
 }
