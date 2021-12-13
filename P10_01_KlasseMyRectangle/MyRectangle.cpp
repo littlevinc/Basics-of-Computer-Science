@@ -1,5 +1,5 @@
 #include "MyRectangle.h"
-
+#include "CImgGIP06.h"
 
 MyRectangle::MyRectangle(int tmp1, int tmp2, int tmp3, int tmp4) {
 	this->x1 = tmp1;
@@ -51,4 +51,13 @@ int MyRectangle::getY2() {
 
 void MyRectangle::draw() const {
 	gip_draw_rectangle(x1, y1, x2, y2, blue);
+}
+
+bool MyRectangle::does_not_collide_with(const MyRectangle& other) const {
+	if (this->y1 == other.y2 && this->x1 == other.x2) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }

@@ -3,8 +3,8 @@ class MyRectangle {
 	
 private:
 
-	int x1 = 0, y1 = 0;
-	int x2 = 20, y2 = 20;
+	int x1 = 0, y1 = 0; // upper left corner
+	int x2 = 20, y2 = 20; // lower right corner
 
 public:
 
@@ -25,5 +25,7 @@ public:
 	int getY2();
 
 	void draw() const;
+
+	bool does_not_collide_with(const MyRectangle& other) const;
 
 };

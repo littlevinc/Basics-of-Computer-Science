@@ -26,6 +26,11 @@ int main()
 		r1.draw();
 		r2.draw();
 
+		if (r1.does_not_collide_with(r2))
+			gip_draw_text(10, 10, "Keine Kollision.");
+		else
+			gip_draw_text(10, 10, "Kollision!");
+
 		// Pausieren ...
 		gip_sleep(4);
 		
