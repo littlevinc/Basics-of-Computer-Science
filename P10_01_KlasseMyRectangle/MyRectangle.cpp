@@ -55,6 +55,7 @@ void MyRectangle::draw() const {
 
 bool MyRectangle::does_not_collide_with(const MyRectangle& other) const {
 
+	// catch all cases where a collision can not occur 
 	if (this->x2 < other.x1 || other.x2 < this->x1 || other.y2 < this->y1 || this->y2 < other.y1) {
 		return true;
 	}
