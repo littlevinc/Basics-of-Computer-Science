@@ -1,6 +1,6 @@
 #include "MyRectangle.h"
 #define CIMGGIP_MAIN
-#include "CImgGIP06.h"
+#include "CImgGIP06Mock.h"
 
 MyRectangle::MyRectangle(int tmp1, int tmp2, int tmp3, int tmp4) {
 	this->x1 = tmp1;
