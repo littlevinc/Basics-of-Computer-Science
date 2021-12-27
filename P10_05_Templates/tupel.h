@@ -13,7 +13,7 @@ int vergleiche(Tupel<A, B> tupelA, Tupel<A, B> tupelB) {
 		return -1;
 	}
 	else if (tupelA.komponente1 > tupelB.komponente1 && tupelA.komponente2 > tupelB.komponente2) {
-		return +1;
+		return 1;
 	}
 	else {
 		return 0;

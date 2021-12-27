@@ -9,7 +9,7 @@ private:
 public:
 
 	// constructor
-	MyRectangle(int tmp1, int tmp2, int tmp3, int tmp4);
+	MyRectangle(int tmp1, int tmp2, int tmp3, int tmp4) : x1{ tmp1 }, y1{ tmp2 }, x2{ tmp3 }, y2{ tmp4 } {};
 
 	// setter methods
 	void set(int tmp1, int tmp2, int tmp3, int tmp4);
@@ -27,5 +27,7 @@ public:
 	void draw() const;
 
 	bool does_not_collide_with(const MyRectangle& other) const;
+
+	
 
 };
