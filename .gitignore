@@ -211,3 +211,4 @@ $RECYCLE.BIN/
 *.*db*
 .vscode/settings.json
 *.out
+.DS_Store
