@@ -56,25 +56,22 @@ void MyRectangle::draw_blue() const {
 	gip_draw_rectangle(x1, y1, x2, y2, blue);
 }
 
+// responsible for movement of ball
 void MyRectangle::set_radius(double cordn_x, double cordn_y) {
 	this->x1 += cordn_x;
 	this->y1 += cordn_y;
 	this->x2 += cordn_x;
 	this->y2 += cordn_y;
-
 }
 
 // collision detection
 bool MyRectangle::does_not_collide_with(const MyRectangle& other) const {
-
-	// catch all cases where a collision can not occur 
 	if (this->x2 < other.x1 || other.x2 < this->x1 || other.y2 < this->y1 || this->y2 < other.y1) {
 		return true;
 	}
 	else {
 		return false;
 	}
-
 }
 
 
