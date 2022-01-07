@@ -27,19 +27,28 @@ int main()
 		// Alles neu zeichnen ...
 		gip_white_background();
 		r1.draw();
+		r1.draw_inner_red();
+
+
+		/*
 		if ((r1.getX2() - r1.getX1()) >= 5 && (r1.getY2() - r1.getY1()) >= 5) {
 			for (int y = r1.getY1() + 2; y < r1.getY2() - 2; y++) {
 				gip_draw_line(int(r1.getX1()) + 2, y, int(r1.getX2()) - 2, y, red);
 			}
 		}
-		
 
-		r2.draw();
 		if ((r2.getX2() - r2.getX1()) >= 5 && (r2.getY2() - r2.getY1()) >= 5) {
 			for (int y = r2.getY1() + 2; y < r2.getY2() - 2; y++) {
 				gip_draw_line(int(r2.getX1()) + 2, y, int(r2.getX2()) - 2, y, red);
 			}
 		}
+		*/
+		
+
+		r2.draw();
+		r2.draw_inner_red();
+
+		
 
 		if (r1.does_not_collide_with(r2))
 			gip_draw_text(10, 10, "Keine Kollision.");
