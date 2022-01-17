@@ -14,18 +14,17 @@ int main()
 	MyRectangle ball(370, 310, 380, 320);
 	MyRectangle schlaeger(200, 480, 250, 500);
 
-	
-
-
 	int direction_x = 10;
 	int direction_y = 10;
 
+	// draw white background and blue playing field
+	gip_background(255);
+	
+
 	while (gip_window_not_closed())
 	{
-		
-		// draw white background and blue playing field
-		gip_background(255);
 		hintergrund.draw_blue();
+		
 
 		ball.set_radius(direction_x, direction_y);
 		ball.draw();
@@ -77,5 +76,6 @@ int main()
 		// Pausieren ...
 		gip_sleep(1);
 	}
+
 	return 0;
 }
