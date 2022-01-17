@@ -45,7 +45,6 @@ void hinten_anfuegen(CharListenKnoten*& anker, const char wert) {
 }
 
 
-
 void loesche_alle(CharListenKnoten*& anker) {
 
 	
