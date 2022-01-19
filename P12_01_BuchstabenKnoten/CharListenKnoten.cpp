@@ -1,98 +1,100 @@
-#include <iostream>
 #include "CharListenKnoten.h"
 
-// init const values
+// initialize static values
 int CharListenKnoten::next_available_id = 1;
 int CharListenKnoten::object_count = 0;
 
-void CharListenKnoten::set_data(char data_tmp) {
-	this->data = data_tmp;
+// getter
+char CharListenKnoten::get_data() { return data; };
+CharListenKnoten* CharListenKnoten::get_next() { return next; };
+int CharListenKnoten::get_my_id() { return my_id; };
+
+// setter
+void CharListenKnoten::set_data(char pData) { data = pData; };
+void CharListenKnoten::set_next(CharListenKnoten* pNext) { next = pNext; };
+
+// constructor
+CharListenKnoten::CharListenKnoten(char pData, CharListenKnoten* pNext)
+{
+	data = pData;
+	next = pNext;
+
+	my_id = next_available_id;
+	next_available_id++;
+
+	object_count++;
 }
 
-void CharListenKnoten::set_next(CharListenKnoten* next_tmp) {
-	this->next = next_tmp;
+// destructor
+CharListenKnoten::~CharListenKnoten()
+{
+	object_count--;
 }
 
-char CharListenKnoten::get_data() {
-	return this->data;
-}
-
-int CharListenKnoten::get_my_id() {
-	return this->my_id;
-}
-
-CharListenKnoten* CharListenKnoten::get_next() {
-	return this->next;
-}
-
-
-void hinten_anfuegen(CharListenKnoten*& anker, const char wert) {
-
-	CharListenKnoten* neuer_eintrag = new CharListenKnoten(wert);
+// functions
+void hinten_anfuegen(CharListenKnoten*& anker, const char wert)
+{
+	CharListenKnoten* newElement = new CharListenKnoten(wert);
 
 	if (anker == nullptr)
-		anker = neuer_eintrag;
+	{
+		anker = newElement;
+	}
 	else
 	{
-		CharListenKnoten* ptr = anker;
-		while (ptr->get_next() != nullptr) {
-			ptr = ptr->get_next();
+		CharListenKnoten* current = anker;
+		while (current->get_next() != nullptr) {
+			current = current->get_next();
 		}
-		ptr->set_next(neuer_eintrag);
-	
+		current->set_next(newElement);
 	}
-
 }
 
-
-void loesche_alle(CharListenKnoten*& anker) {
-
-	
-	if (anker == nullptr) {
+void loesche_alle(CharListenKnoten*& anker)
+{
+	if (anker == nullptr)
+	{
 		return;
 	}
-	else {
-		CharListenKnoten* ptr = anker;
-		CharListenKnoten* ptr_old = ptr;
-
-		do {
-			ptr_old = ptr;
-			ptr = ptr->get_next();
-			delete ptr_old;
-		} while (ptr != nullptr);
-
-		anker = nullptr;
-	}
-
-}
-
-
-CharListenKnoten* deep_copy(CharListenKnoten* orig) {
-
-	CharListenKnoten* copy_anker;
-
-	if (orig == nullptr) return nullptr;
 	else
 	{
-		// anker for copied list
-		copy_anker = new CharListenKnoten(orig->get_data());
+		CharListenKnoten* current = anker->get_next();
 
-		if (orig->get_next() != nullptr)
+		while (current != nullptr)
 		{
-			CharListenKnoten* tmpc = orig->get_next(); //tempc for data
-			CharListenKnoten* tmpo = copy_anker;
+			CharListenKnoten* tmp = current->get_next();
 
-			do
-			{
-				tmpo->set_next(new CharListenKnoten(tmpc->get_data()));
-				tmpo = tmpo->get_next();
-				tmpc = tmpc->get_next();
-			} while (tmpc->get_next() != nullptr);
+			delete current;
 
-			tmpo->set_next(new CharListenKnoten(tmpc->get_data()));
+			current = tmp;
 		}
-	}
 
-	return copy_anker;
+		delete anker;
+		anker = nullptr;
+	}
 }
 
+CharListenKnoten* deep_copy(CharListenKnoten* orig)
+{
+	if (orig == nullptr)
+	{
+		return nullptr;
+	}
+	else
+	{
+		CharListenKnoten* origCurrent = orig->get_next();
+		CharListenKnoten* copyCurrent = new CharListenKnoten(orig->get_data());
+		CharListenKnoten* newAnker = copyCurrent;
+
+		while (origCurrent != nullptr)
+		{
+			CharListenKnoten* newElement = new CharListenKnoten(origCurrent->get_data());
+			copyCurrent->set_next(newElement);
+
+			origCurrent = origCurrent->get_next();
+			copyCurrent = newElement;
+		}
+
+		return newAnker;
+	}
+}

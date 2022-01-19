@@ -1,26 +1,46 @@
 #pragma once
-#include "CharListenKnoten.h"
+
 #include <string>
 
+#include "CharListenKnoten.h"
 
-class MyString2 {
 
-protected:
+class MyString2 
+{
+private:
 	CharListenKnoten* anker;
 
-private:
-
 public:
-	
-	MyString2() { anker = nullptr; } // first constructor
+
+	// setter
+	void set_anker(CharListenKnoten* anker_tmp) { this->anker = anker_tmp; }
+
+	// getter
+	CharListenKnoten* get_anker() { return this->anker; }
+
+	// constructor
+	MyString2() { anker = nullptr; } 
+
 	MyString2(std::string string_tmp) { for (int i = 0; i < string_tmp.length(); i++) hinten_anfuegen(anker, string_tmp.at(i)); } // second constructor
 
-	MyString2(const MyString2& orig_mystring) { deep_copy(anker); } // copy constructor
-	
+
+	MyString2(const MyString2& orig_mystring) { this->anker = deep_copy(orig_mystring.anker); } // copy constructor
+
+	// assignment operator
+	MyString2& operator = (const MyString2& orig) {
+		loesche_alle(anker);
+		anker = deep_copy(orig.anker);
+		return *this;
+	}
+
 	~MyString2() { loesche_alle(anker); } // destructor
 
+	unsigned int length() const; // 13.05
 
-	void set_anker(CharListenKnoten* anker_tmp) { this->anker = anker_tmp; }
-	CharListenKnoten* get_anker() { return this->anker;  }
+	char at(unsigned int pos) const; // 13.06
+
+	std::string to_string() const; // 13.07
+
+	MyString2 operator + (char c) const; //13.08
 
 };

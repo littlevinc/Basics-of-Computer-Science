@@ -1,41 +1,33 @@
 #pragma once
 
-
-
-class CharListenKnoten {
-
-private: 
-	
+class CharListenKnoten
+{
+private:
 	char data;
-	int my_id;
 	CharListenKnoten* next;
+	int my_id;
 
 public:
-
-	// constructor
-	CharListenKnoten(char data_val, CharListenKnoten* next_val = nullptr) : data{ data_val }, next{ next_val } { my_id = next_available_id; next_available_id++; object_count++;  };
-
-	// destructor
-	~CharListenKnoten() {
-		object_count--;
-	}
-
-	// public attributes
 	static int next_available_id;
 	static int object_count;
-	 
-	// get methods
+
+	// getter
 	char get_data();
-	int get_my_id();
 	CharListenKnoten* get_next();
+	int get_my_id();
 
-	// set methods
-	void set_data(char data_tmp);
-	void set_next(CharListenKnoten* next_tmp);
+	// setter
+	void set_data(char pData);
+	void set_next(CharListenKnoten* pNext);
 
+	// constructor
+	CharListenKnoten(char pData, CharListenKnoten* pNext = nullptr);
+
+	// destructor
+	~CharListenKnoten();
 };
 
-
+// functions
 void hinten_anfuegen(CharListenKnoten*& anker, const char wert);
 void loesche_alle(CharListenKnoten*& anker);
 CharListenKnoten* deep_copy(CharListenKnoten* orig);
